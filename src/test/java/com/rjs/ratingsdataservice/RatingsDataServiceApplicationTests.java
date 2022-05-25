@@ -23,7 +23,7 @@ class RatingsDataServiceApplicationTests {
 	}
 
 	@Test
-	void shouldReturnHardCodedMovieInfo(){
+	void shouldReturnHardCodedMovieRating(){
 		MovieRating movieRating = restTemplate.getForObject("http://localhost:" + port + "/movieRatings/1",
 				MovieRating.class);
 
