@@ -1,6 +1,6 @@
-package com.rjs.ratingsdataservice.resource;
+package com.rjs.movieratingservice.resource;
 
-import com.rjs.ratingsdataservice.model.MovieRating;
+import com.rjs.movieratingservice.model.MovieRating;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

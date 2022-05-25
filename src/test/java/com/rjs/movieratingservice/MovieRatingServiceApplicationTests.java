@@ -1,6 +1,6 @@
-package com.rjs.ratingsdataservice;
+package com.rjs.movieratingservice;
 
-import com.rjs.ratingsdataservice.model.MovieRating;
+import com.rjs.movieratingservice.model.MovieRating;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class RatingsDataServiceApplicationTests {
+class MovieRatingServiceApplicationTests {
 
 	@LocalServerPort
 	private int port;
