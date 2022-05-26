@@ -27,6 +27,6 @@ class MovieRatingServiceApplicationTests {
 		MovieRating movieRating = restTemplate.getForObject("http://localhost:" + port + "/movieRatings/1",
 				MovieRating.class);
 
-		assertThat(movieRating).isEqualTo(new MovieRating(1,4));
+		assertThat(movieRating).isEqualTo(new MovieRating("1",4));
 	}
 }

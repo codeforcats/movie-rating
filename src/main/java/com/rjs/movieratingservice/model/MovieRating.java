@@ -1,3 +1,3 @@
 package com.rjs.movieratingservice.model;
 
-public record MovieRating (int movieId, int rating){ }
+public record MovieRating (String movieId, int rating){ }

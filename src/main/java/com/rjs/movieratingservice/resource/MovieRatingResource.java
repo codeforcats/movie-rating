@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieRatingResource {
 
     @RequestMapping("/{movieId}")
-    public MovieRating getMovieRating(@PathVariable int movieId) {
-        return new MovieRating(1,4);
+    public MovieRating getMovieRating(@PathVariable String movieId) {
+        return new MovieRating("1",4);
     }
 }
