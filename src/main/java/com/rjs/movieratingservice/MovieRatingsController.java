@@ -15,9 +15,8 @@ public class MovieRatingsController {
     private MovieRatingsRepo movieRatingsRepo;
 
     @RequestMapping("/{userId}")
-    public Collection<MovieRating> getMovieRatingListForUserId(@PathVariable String userId){
+    public Collection<MovieRating> getMovieRatingsForUserId(@PathVariable String userId){
             return movieRatingsRepo.getMovieRatingsForUser(userId);
     }
-
 
 }
