@@ -23,7 +23,7 @@ class MovieRatingsControllerTest {
     private MovieRatingsRepo mockMovieRatingsRepo;
 
     @Test
-    public void userFound() throws Exception {
+    public void ratingsFound() throws Exception {
         Mockito.when(mockMovieRatingsRepo.getMovieRatingsForUser("joe")).thenReturn(Arrays.asList(
                 new MovieRating("Jaws", 4),
                 new MovieRating("Star Wars", 3)));
@@ -35,11 +35,11 @@ class MovieRatingsControllerTest {
     }
 
     @Test
-    public void userNotFound() throws Exception{
+    public void ratingsNotFound() throws Exception{
         Mockito.when(mockMovieRatingsRepo.getMovieRatingsForUser("tom"))
-                .thenThrow( new ResourceNotFoundException());
+                .thenReturn(null);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/tom"))
-                .andExpect(status().isNotFound());
+                .andExpect(MockMvcResultMatchers.content().string(""));
     }
 }
