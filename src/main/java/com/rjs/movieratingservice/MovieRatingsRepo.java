@@ -1,16 +1,13 @@
 package com.rjs.movieratingservice;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@Repository
+@Component
 public class MovieRatingsRepo {
-    public Collection<MovieRating> getMovieRatingsForUser(String userId) {
-        return userIdMovieRatingsMap.get(userId);
+    public Optional<Collection<MovieRating>> findMovieRatingsByuserId(String userId) {
+        return Optional.of(userIdMovieRatingsMap.get(userId));
     }
 
     private final Map<String, List<MovieRating>> userIdMovieRatingsMap =

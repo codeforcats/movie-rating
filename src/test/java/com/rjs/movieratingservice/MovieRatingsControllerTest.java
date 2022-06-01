@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,11 +25,12 @@ class MovieRatingsControllerTest {
 
     @Test
     public void ratingsFound() throws Exception {
-        Mockito.when(mockMovieRatingsRepo.getMovieRatingsForUser("joe")).thenReturn(Arrays.asList(
+        Mockito.when(mockMovieRatingsRepo.findMovieRatingsByuserId("joe")).thenReturn(
+                Optional.of(Arrays.asList(
                 new MovieRating("Jaws", 4),
-                new MovieRating("Star Wars", 3)));
+                new MovieRating("Star Wars", 3))));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/joe"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/{userId}", "joe"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .string("[{\"movieId\":\"Jaws\",\"rating\":4},{\"movieId\":\"Star Wars\",\"rating\":3}]"));
@@ -36,10 +38,10 @@ class MovieRatingsControllerTest {
 
     @Test
     public void ratingsNotFound() throws Exception{
-        Mockito.when(mockMovieRatingsRepo.getMovieRatingsForUser("tom"))
-                .thenReturn(null);
+        Mockito.when(mockMovieRatingsRepo.findMovieRatingsByuserId("tom"))
+                .thenReturn(Optional.empty());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/tom"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/{userId}}", "tome"))
                 .andExpect(MockMvcResultMatchers.content().string(""));
     }
 }

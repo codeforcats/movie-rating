@@ -16,7 +16,7 @@ public class MovieRatingsController {
 
     @RequestMapping("/{userId}")
     public Collection<MovieRating> getMovieRatingsForUserId(@PathVariable String userId){
-            return movieRatingsRepo.getMovieRatingsForUser(userId);
+            return movieRatingsRepo.findMovieRatingsByuserId(userId).orElseThrow(ResourceNotFoundException::new);
     }
 
 }
