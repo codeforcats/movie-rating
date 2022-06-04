@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ApplicationIntegrationTest {
+class ApplicationIT {
 
     @LocalServerPort
     private int port;
@@ -44,10 +45,12 @@ class ApplicationIntegrationTest {
 
     @Test
     void ratingsNotFound(){
-        ResponseEntity<MovieRating[]> response =
+        // actually expecting MovieRating[], not Movies rating, but using MovieRating[] here causes issues.
+        // just saying MovieRating here is just to get past this so we can look at the response code.
+        ResponseEntity<MovieRating> response =
                 restTemplate.getForEntity("http://localhost:" + port + "/movieRatings/{userId}",
-                        MovieRating[].class, "bob");
+                        MovieRating.class, "bob");
 
-        Assertions.assertThat(response.getBody() == null);
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }

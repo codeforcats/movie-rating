@@ -7,7 +7,7 @@ import java.util.*;
 @Component
 public class MovieRatingsRepo {
     public Optional<Collection<MovieRating>> findMovieRatingsByuserId(String userId) {
-        return Optional.of(userIdMovieRatingsMap.get(userId));
+        return Optional.ofNullable(userIdMovieRatingsMap.get(userId));
     }
 
     private final Map<String, List<MovieRating>> userIdMovieRatingsMap =
