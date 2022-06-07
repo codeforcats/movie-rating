@@ -15,7 +15,7 @@ public class MovieRatingsRepo {
                 "joe",
                 Arrays.asList(
                         new MovieRating("Jaws", 4),
-                        new MovieRating("Star Wars", 3),
+                        new MovieRating("StarWars", 3),
                         new MovieRating("Terminator", 7)),
 
 
