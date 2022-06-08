@@ -3,6 +3,7 @@ package com.rjs.movieratingservice;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -14,6 +15,9 @@ import java.util.Collection;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ApplicationIT {
+
+    @Value("${server.host}")
+    private String host;
 
     @LocalServerPort
     private int port;
@@ -30,7 +34,7 @@ class ApplicationIT {
                 new MovieRating("Terminator", 7));
 
         ResponseEntity<MovieRating[]> response =
-                restTemplate.getForEntity("http://localhost:" + port + "/movieRatings/{userId}",
+                restTemplate.getForEntity("http://" + host + ":" + + port + "/movieRatings/{userId}",
                         MovieRating[].class, "joe");
 
         Collection<MovieRating> movieRatings = Arrays.asList(response.getBody());
@@ -48,7 +52,7 @@ class ApplicationIT {
         // actually expecting MovieRating[], not Movies rating, but using MovieRating[] here causes issues.
         // just saying MovieRating here is just to get past this so we can look at the response code.
         ResponseEntity<MovieRating> response =
-                restTemplate.getForEntity("http://localhost:" + port + "/movieRatings/{userId}",
+                restTemplate.getForEntity("http://" + host + ":" + port + "/movieRatings/{userId}",
                         MovieRating.class, "bob");
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
