@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -24,7 +25,7 @@ class MovieRatingsControllerTest {
     private MovieRatingsRepo mockMovieRatingsRepo;
 
     @Test
-    public void ratingsFound() throws Exception {
+    public void whenRatingsExistForValidUserReturnPopulatedList() throws Exception {
         Mockito.when(mockMovieRatingsRepo.findMovieRatingsByuserId("joe")).thenReturn(
                 Optional.of(Arrays.asList(
                 new MovieRating("Jaws", 4),
@@ -37,11 +38,20 @@ class MovieRatingsControllerTest {
     }
 
     @Test
-    public void ratingsNotFound() throws Exception{
-        Mockito.when(mockMovieRatingsRepo.findMovieRatingsByuserId("tom"))
-                .thenReturn(Optional.empty());
+    public void whenNoRatingsFoundForValidUserShouldReturnEmptyList() throws Exception{
+        Mockito.when(mockMovieRatingsRepo.findMovieRatingsByuserId("jen"))
+                .thenReturn(Optional.of(new ArrayList<>()));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/{userId}}", "tome"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/{userId}}", "jen"))
                 .andExpect(MockMvcResultMatchers.content().string(""));
+    }
+
+    @Test
+    public void whenInvalidUserShouldThrowResourceNotFoundException() throws Exception{
+        Mockito.when(mockMovieRatingsRepo.findMovieRatingsByuserId("foo"))
+                .thenThrow(new ResourceNotFoundException());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/movieRatings/{userId}}", "foo"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }

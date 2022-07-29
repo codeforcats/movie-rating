@@ -7,7 +7,11 @@ import java.util.*;
 @Component
 public class MovieRatingsRepo {
     public Optional<Collection<MovieRating>> findMovieRatingsByuserId(String userId) {
-        return Optional.ofNullable(userIdMovieRatingsMap.get(userId));
+
+        if (userIdMovieRatingsMap.containsKey(userId))
+            return Optional.ofNullable(userIdMovieRatingsMap.get(userId));
+        else
+            throw new ResourceNotFoundException();
     }
 
     private final Map<String, List<MovieRating>> userIdMovieRatingsMap =
@@ -22,7 +26,11 @@ public class MovieRatingsRepo {
                 "hannah",
                 Arrays.asList(
                         new MovieRating("Jaws", 3),
-                        new MovieRating("Frozen", 3))
+                        new MovieRating("Frozen", 3)),
+
+                "jen",
+                Arrays.asList()
+
         );
 
 }

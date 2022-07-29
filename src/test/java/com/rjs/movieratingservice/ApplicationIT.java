@@ -26,7 +26,7 @@ class ApplicationIT {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void ratingsFound(){
+    public void whenValidUserAndRatingsExistShouldReturnPopulatedList(){
 
         Collection<MovieRating> expectedMovieRatings = Arrays.asList(
                 new MovieRating("Jaws", 4),
@@ -39,8 +39,6 @@ class ApplicationIT {
 
         Collection<MovieRating> movieRatings = Arrays.asList(response.getBody());
 
-
-
         for (MovieRating expectedMovieRating : expectedMovieRatings) {
             Assertions.assertThat(movieRatings.stream().anyMatch(expectedMovieRating::equals));
         }
@@ -48,12 +46,29 @@ class ApplicationIT {
     }
 
     @Test
-    void ratingsNotFound(){
-        // actually expecting MovieRating[], not Movies rating, but using MovieRating[] here causes issues.
-        // just saying MovieRating here is just to get past this so we can look at the response code.
+    public void whenValidUserAndNoRatingsExistShouldReturnEmptyList(){
+
+        Collection<MovieRating> expectedMovieRatings = Arrays.asList();
+
+        ResponseEntity<MovieRating[]> response =
+                restTemplate.getForEntity("http://" + host + ":" + + port + "/movieRatings/{userId}",
+                        MovieRating[].class, "jen");
+
+        Collection<MovieRating> movieRatings = Arrays.asList(response.getBody());
+
+        for (MovieRating expectedMovieRating : expectedMovieRatings) {
+            Assertions.assertThat(movieRatings.stream().anyMatch(expectedMovieRating::equals));
+        }
+
+    }
+    @Test
+    void whenInvalidUserShouldThrowResourceNotFound(){
+        // there must be a better way to do this!
+        // we are actually expecting MovieRating[], not MovieRating, but using MovieRating[] here causes issues.
+        // just saying MovieRating here is just to get past this to look at the response code.
         ResponseEntity<MovieRating> response =
                 restTemplate.getForEntity("http://" + host + ":" + port + "/movieRatings/{userId}",
-                        MovieRating.class, "bob");
+                        MovieRating.class, "foo");
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
