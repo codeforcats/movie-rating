@@ -3,4 +3,4 @@
  *
  * @author richard
  */
-package com.rjs.movieratingservice;
+package com.rjs.movierating;

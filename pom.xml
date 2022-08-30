@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.rjs</groupId>
-	<artifactId>movie-rating-service</artifactId>
+	<artifactId>movie-rating</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>movie-rating-service</name>
+	<name>movie-rating</name>
 	<description>provides list of movies watched by a given user id, each with its user rating.</description>
 	<properties>
 		<java.version>17</java.version>

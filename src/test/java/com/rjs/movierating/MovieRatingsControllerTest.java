@@ -1,4 +1,4 @@
-package com.rjs.movieratingservice;
+package com.rjs.movierating;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

@@ -1,4 +1,4 @@
-package com.rjs.movieratingservice;
+package com.rjs.movierating;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

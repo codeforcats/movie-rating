@@ -1,18 +1,18 @@
 # Movie Info Service Notes
 
 ## make the executable jar file
-* ./mvnw package
+* ./mvnw clean package
 
 ## then, EITHER
 ## run jar file from the command line
-java -jar target/movie-rating-service-0.0.1-SNAPSHOT.jar
+java -jar target/movie-rating-0.0.1-SNAPSHOT.jar
 
 ## OR
 ## first build a docker image which runs the executable jar file
-* docker build -t movie-rating-service-image .
+* docker build -t movie-rating-image .
 
 ## then run (detached) the image in a docker container, with ports mapped.
-* docker run --name movie-rating-service-container -d -p 8083:8083 movie-rating-service-image 
+* docker run --name movie-rating-container -d -p 8083:8083 movie-rating-image 
 
 ## REGARDLESS of running in Docker or not
 
